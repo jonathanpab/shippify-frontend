@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Table, TableHead, TableCell, TableRow, TableBody, Button, makeStyles } from '@material-ui/core'
-import { Link } from 'react-router-dom';
-import {deleteVehicle, getVehicle} from "../../Service/api";
+import {Link, useParams} from 'react-router-dom';
+import {deleteVehicle, getVehicleByDriverId} from "../../Service/api";
 
 const useStyles = makeStyles({
     table: {
@@ -26,19 +26,24 @@ const useStyles = makeStyles({
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState([]);
     const classes = useStyles();
+    const { driver_id } = useParams();
 
     useEffect(() => {
         getAllVehicles();
     }, []);
 
-    const deleteVehicleData = async (id) => {
-        await deleteVehicle(id);
+    const deleteVehicleData = async (vehicle_id) => {
+        await deleteVehicle(vehicle_id);
         getAllVehicles();
     }
 
     const getAllVehicles = async () => {
-        let response = await getVehicle();
+        let response = await getVehicleByDriverId(driver_id);
         setVehicles(response.data);
+    }
+
+    const formatDate = (creation_date)=>{
+        return `${new Date(creation_date).toLocaleDateString()} ${new Date(creation_date).toLocaleTimeString()}`;
     }
     return (
         <>
@@ -62,7 +67,7 @@ const Vehicles = () => {
                         <TableCell>{vehicle.model}</TableCell>
                         <TableCell>{vehicle.type}</TableCell>
                         <TableCell>{vehicle.capacity}</TableCell>
-                        <TableCell>{vehicle.creation_date}</TableCell>
+                        <TableCell>{formatDate(vehicle.creation_date)}</TableCell>
                         <TableCell>
                             <Button color="primary" variant="contained" style={{marginRight:10}} component={Link} to={`/editVehicle/${vehicle.id}`}>Editar Vehículo</Button>
                             <Button color="secondary" variant="contained" onClick={() => deleteVehicleData(vehicle.id)}>Borrar Vehículo</Button>

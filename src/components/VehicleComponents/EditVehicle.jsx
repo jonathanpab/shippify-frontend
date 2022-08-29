@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FormGroup, FormControl, InputLabel, Input, Button, makeStyles, Typography } from '@material-ui/core';
 import { useNavigate, useParams} from 'react-router-dom';
 
-import { editVehicle, getVehicle} from '../../Service/api';
+import {editVehicle, getVehicle, getVehicleById} from '../../Service/api';
 
 const initialValue = {
     driver_id: '',
@@ -35,7 +35,7 @@ const EditVehicle = () => {
     }, []);
 
     const loadVehicleDetails = async() => {
-        const response = await getVehicle(id);
+        const response = await getVehicleById(id);
         setVehicle(response.data[0]);
     }
 
@@ -73,7 +73,7 @@ const EditVehicle = () => {
             </FormControl>
             <FormControl>
                 <InputLabel htmlFor="my-input">Fecha de creación</InputLabel>
-                <Input onChange={(e) => onValueChange(e)} name='creation_date' value={creation_date} id="my-input" />
+                <Input disabled={true} onChange={(e) => onValueChange(e)} name='creation_date' value={`${new Date(creation_date).toLocaleDateString()} ${new Date(creation_date).toLocaleTimeString()}`} id="my-input" />
             </FormControl>
             <FormControl>
                 <Button variant="contained" color="primary" onClick={() => editVehicleDetails()}>Editar Vehículo</Button>

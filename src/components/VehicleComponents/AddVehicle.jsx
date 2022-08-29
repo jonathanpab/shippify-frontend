@@ -29,13 +29,14 @@ const AddVehicle = () => {
     let navigate = useNavigate();
 
     const onValueChange = (e) => {
-        console.log(e.target.value);
+        console.log(`${new Date().toLocaleDateString().split("/").reverse().join("-")} ${new Date().toLocaleTimeString()}`)
         setVehicle({...vehicle, [e.target.name]: e.target.value})
     }
 
     const addVehicleDetails = async() => {
+        vehicle.creation_date = `${new Date().toLocaleDateString().split("/").reverse().join("-")} ${new Date().toLocaleTimeString()}`;
         await addVehicle(vehicle);
-        navigate('./allVehicles');
+        navigate('/allVehicles');
     }
 
     return (
@@ -60,10 +61,6 @@ const AddVehicle = () => {
             <FormControl>
                 <InputLabel htmlFor="my-input">Capacidad</InputLabel>
                 <Input onChange={(e) => onValueChange(e)} name='capacity' value={capacity} id="my-input" />
-            </FormControl>
-            <FormControl>
-                <InputLabel htmlFor="my-input">Fecha de creación</InputLabel>
-                <Input onChange={(e) => onValueChange(e)} name='creation_date' value={creation_date} id="my-input" />
             </FormControl>
             <FormControl>
                 <Button variant="contained" color="primary" onClick={() => addVehicleDetails()}>Agregar Vehículo</Button>

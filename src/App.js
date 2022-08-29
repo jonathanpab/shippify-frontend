@@ -12,6 +12,7 @@ function App() {
       <BrowserRouter>
         <NavBar/>
         <Routes>
+          <Route exact path="/allVehicles/:driver_id" element={<Vehicles/>} />
           <Route exact path="/allVehicles" element={<Vehicles/>} />
           <Route exact path="/addVehicle" element={<AddVehicle/>} />
           <Route exact path="/editVehicle/:id" element={<EditVehicle/>} />
