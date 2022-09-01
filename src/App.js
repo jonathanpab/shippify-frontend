@@ -14,7 +14,8 @@ function App() {
         <Routes>
           <Route exact path="/allVehicles/:driver_id" element={<Vehicles/>} />
           <Route exact path="/allVehicles" element={<Vehicles/>} />
-          <Route exact path="/addVehicle" element={<AddVehicle/>} />
+          <Route exact path="/allVehicles/:limit/:page" element={<Vehicles/>} />
+          <Route exact path="/addVehicle" element={<EditVehicle/>} />
           <Route exact path="/editVehicle/:id" element={<EditVehicle/>} />
         </Routes>
       </BrowserRouter>

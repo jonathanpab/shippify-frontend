@@ -26,11 +26,13 @@ const useStyles = makeStyles({
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState([]);
     const classes = useStyles();
-    const { driver_id } = useParams();
+    const { driver_id, limit, page } = useParams();
+    const [page_param, setPage] = useState(1);
+    const limit_param = 10;
 
     useEffect(() => {
         getAllVehicles();
-    }, []);
+    }, [page, limit, driver_id]);
 
     const deleteVehicleData = async (vehicle_id) => {
         await deleteVehicle(vehicle_id);
@@ -38,16 +40,19 @@ const Vehicles = () => {
     }
 
     const getAllVehicles = async () => {
-        let response = await getVehicleByDriverId(driver_id);
+        let response = await getVehicleByDriverId(driver_id, limit, page);
         setVehicles(response.data);
     }
 
     const formatDate = (creation_date)=>{
         return `${new Date(creation_date).toLocaleDateString()} ${new Date(creation_date).toLocaleTimeString()}`;
     }
+
+
     return (
         <>
-        <Table className={classes.table}>
+            <Button variant="contained" color="primary" onClick={() => setPage(page_param+1)} component={Link} to={`/allVehicles/${limit_param}/${page_param+1}`}> Siguiente </Button>
+            <Table className={classes.table}>
             <TableHead>
                 <TableRow className={classes.thead}>
                     <TableCell>Conductor</TableCell>

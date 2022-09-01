@@ -2,9 +2,13 @@ import axios from 'axios';
 
 const apiUrl = 'http://localhost:3000';
 
-export const getVehicleByDriverId = async (id) => {
-    id = id || '';
-    return await axios.get(`${apiUrl}/vehicles/${id}`);
+export const getVehicleByDriverId = async (id, limit, page) => {
+    if(page && limit){
+        return await axios.get(`${apiUrl}/vehicles/${limit}/${page}`);
+    }else {
+        id = id || '';
+        return await axios.get(`${apiUrl}/vehicles/${id}`);
+    }
 }
 
 export const getVehicleById = async (id) => {

@@ -29,7 +29,6 @@ const AddVehicle = () => {
     let navigate = useNavigate();
 
     const onValueChange = (e) => {
-        console.log(`${new Date().toLocaleDateString().split("/").reverse().join("-")} ${new Date().toLocaleTimeString()}`)
         setVehicle({...vehicle, [e.target.name]: e.target.value})
     }
 

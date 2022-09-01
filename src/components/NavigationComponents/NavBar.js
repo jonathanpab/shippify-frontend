@@ -18,7 +18,7 @@ const NavBar = () => {
     return (
         <AppBar position="static" className={classes.header}>
             <Toolbar>
-                <NavLink className={classes.tabs} to="allVehicles" >Vehículos</NavLink>
+                <NavLink className={classes.tabs} to="allVehicles/10/1" >Vehículos</NavLink>
                 <NavLink className={classes.tabs} to="addVehicle" >Agregar Vehículos</NavLink>
             </Toolbar>
         </AppBar>
